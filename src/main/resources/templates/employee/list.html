@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layouts/default}">
+<body>
+	<div id="page" layout:fragment="content">
+		<div th:switch="${employees}">
+			<h2 th:case="null">No hay empleados aun!</h2>
+			<div th:case="*">
+				<h2>Empleados</h2>
+				<table class="table">
+					<thead>
+						<tr>
+							<th scope="col">Name</th>
+							<th scope="col">EMail</th>
+							<th scope="col">House</th>
+							<th scope="col">Update</th>
+							<th scope="col">Delete</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="emp : ${employees}">
+							<td th:text="${emp.name}"></td>
+							<td th:text="${emp.email}"></td>
+							<td th:text="${emp.house}"></td>
+							<td><a th:href="@{/employee/update/{id}(id=${emp.id})}">Edit</a></td>
+                    		<td><a th:href="@{/employee/delete/{id}(id=${emp.id})}">Delete</a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<p>
+				<a href="/employee/add">Agregar nuevo empleado</a>
+			</p>
+		</div>
+	</div>
+</body>
+</html>
